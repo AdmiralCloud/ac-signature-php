@@ -1,0 +1,17 @@
+{
+    "name": "ac-signature-php",
+    "description": "Create and check signed payload for AdmiralCloud SaaS platform",
+    "keywords": ["admiralcloud"],
+    "homepage": "http://github.com/admiralcloud/ac-signature-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mark Poepping",
+            "email": "mark.poepping@admiralcloud.com",
+            "homepage": "https://www.admiralcloud.com"
+        }
+    ],
+    "require" : {
+        "php": ">=5.3.3"
+    }
+}
