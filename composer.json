@@ -1,17 +1,24 @@
 {
-    "name": "ac-signature-php",
-    "description": "Create and check signed payload for AdmiralCloud SaaS platform",
-    "keywords": ["admiralcloud"],
+    "name": "admiralcloud/ac-signature-php",
+    "description": "AdmiralCloud Signature Helper",
+    "keywords": ["admiralcloud", "dam", "digital asset management"],
     "homepage": "http://github.com/admiralcloud/ac-signature-php",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Mark Poepping",
-            "email": "mark.poepping@admiralcloud.com",
-            "homepage": "https://www.admiralcloud.com"
-        }
-    ],
-    "require" : {
-        "php": ">=5.3.3"
+    "type": "library",
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/"
+        ]
     }
 }
