@@ -184,7 +184,7 @@ class acSignature
         $valueToHash .= PHP_EOL . $ts . (empty($payload) ? '' : PHP_EOL . json_encode($payload));
         $calculatedHash = hash_hmac('sha256', $valueToHash, $accessSecret);
 
-        if ($debugSignature || $calculatedHash !== $hash) {
+        if ($debugSignature || !hash_equals($calculatedHash, $hash)) {
             echo str_pad("Check Signature V{$version}", 80, '-') . PHP_EOL;
             if ($accessKey) {
                 echo str_pad($this->debugPrefix, 14) . " | " . 
@@ -226,7 +226,7 @@ class acSignature
             echo str_repeat('-', 80) . PHP_EOL;
         }
 
-        if ($calculatedHash !== $hash) {
+        if (!hash_equals($calculatedHash, $hash)) {
             return ['message' => $errorPrefix . '_hashMismatch', 'status' => 401];
         }
 
