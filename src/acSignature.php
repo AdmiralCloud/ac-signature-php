@@ -26,8 +26,9 @@ class acSignature
      */
     public function sign($params, $options = [])
     {
-        $accessSecret = $params['accessSecret'];
-        if (!$accessSecret) return 'accessSecretMissing';
+        if (!is_array($params)) throw new \InvalidArgumentException('paramsRequired');
+        $accessSecret = isset($params['accessSecret']) ? $params['accessSecret'] : null;
+        if (!$accessSecret) throw new \InvalidArgumentException('accessSecretMissing');
 
         // accessKey only required for debugging
         $accessKey = isset($params['accessKey']) ? $params['accessKey'] : null;
@@ -71,9 +72,9 @@ class acSignature
         } else {
             // version 1 with controller/action
             $controller = isset($params['controller']) ? $params['controller'] : null;
-            if (!$controller) return 'controllerMissing';
+            if (!$controller) throw new \InvalidArgumentException('controllerMissing');
             $action = isset($params['action']) ? $params['action'] : null;
-            if (!$action) return 'actionMissing';
+            if (!$action) throw new \InvalidArgumentException('actionMissing');
             
             $valueToHash = strtolower($controller) . PHP_EOL . strtolower($action);
             if ($debugMode) {
