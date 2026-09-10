@@ -1,0 +1,18 @@
+services:
+  php-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    entrypoint: |
+      sh -c '
+        echo "Current directory: $$(pwd)"
+        echo "Directory contents:"
+        ls -la
+        echo "Installing dependencies..."
+        composer install --no-interaction
+        echo "Vendor directory contents:"
+        ls -la vendor/bin
+        echo "Running tests..."
+        php vendor/bin/phpunit --colors=always
+      '
