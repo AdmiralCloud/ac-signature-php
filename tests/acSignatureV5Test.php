@@ -337,4 +337,17 @@ class acSignatureV5Test extends TestCase
         $result = $this->acSignature->checkSignedPayload($largePayload, $options);
         $this->assertNull($result, 'Large payload should be handled correctly');
     }
+
+    public function testUnicodeAndSlashesMatchReferenceImplementation()
+    {
+        // Expected hash generated with the JS reference implementation (ac-signature)
+        $result = $this->acSignature->sign5([
+            'accessSecret' => $this->accessSecret,
+            'path' => $this->basePath,
+            'payload' => ['query' => 'T_BAV 3–11_L', 'url' => 'a/b'],
+            'ts' => 1700000000
+        ]);
+
+        $this->assertEquals('f19bd874db297e4ebf4b44e52ab54441e2197515733d13e0a4edeb48ad9d265b', $result['hash']);
+    }
 }
