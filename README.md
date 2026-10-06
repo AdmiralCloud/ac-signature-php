@@ -102,7 +102,7 @@ curl_setopt_array($curl, array(
     CURLOPT_URL => 'https://api.admiralcloud.com/v5/user/123',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_POST => true,
-    CURLOPT_POSTFIELDS => json_encode($params['payload']),
+    CURLOPT_POSTFIELDS => json_encode($params['payload'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
     CURLOPT_HTTPHEADER => array(
         'Content-Type: application/json',
         'x-admiralcloud-clientId: ' . $clientId, // ClientID of your application, contact AC team if you are not sure about it
@@ -115,6 +115,9 @@ curl_setopt_array($curl, array(
 ));
 ?>
 ```
+
+## Important: JSON encoding
+The signature is calculated over the JSON string of the payload. PHP's `json_encode` escapes non-ASCII characters (`–` becomes `\u2013`) and slashes (`/` becomes `\/`) by default, which does not match the reference implementation. Always use `JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES` - if you build the signature yourself, you have to do the same.
 
 ## Options
 Option | Type | Remarks

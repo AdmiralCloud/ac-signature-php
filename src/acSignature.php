@@ -88,7 +88,7 @@ class acSignature
             $valueToHash .= PHP_EOL . $identifier;
         }
 
-        $valueToHash .= PHP_EOL . $ts . (empty($payload) ? '' : PHP_EOL . json_encode($payload));
+        $valueToHash .= PHP_EOL . $ts . (empty($payload) ? '' : PHP_EOL . json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         $hash = hash_hmac('sha256', $valueToHash, $accessSecret);
 
         if ($debugMode) {
@@ -182,7 +182,7 @@ class acSignature
             $valueToHash .= PHP_EOL . $identifier;
         }
 
-        $valueToHash .= PHP_EOL . $ts . (empty($payload) ? '' : PHP_EOL . json_encode($payload));
+        $valueToHash .= PHP_EOL . $ts . (empty($payload) ? '' : PHP_EOL . json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         $calculatedHash = hash_hmac('sha256', $valueToHash, $accessSecret);
 
         if ($debugSignature || !hash_equals($calculatedHash, $hash)) {
